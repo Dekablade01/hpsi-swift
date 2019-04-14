@@ -35,5 +35,4 @@ struct Request<T: Decodable>: Requestable {
         self.encoding = encoding
     }
     
-    
 }
