@@ -13,8 +13,10 @@ protocol RequestManager {
     
     var sessionManager: SessionManager { get }
     
-    func perform<T>(_ requestable: Request<T>) -> Swift.Result<T, Error>
+    func perform<T>(_ requestable: Request<T>,
+                    callback: Callback<(Swift.Result<T, Error>)>?)
     
-    func perform<T>(_ requestable: CollectionRequest<T>) -> Swift.Result<T, Error> 
+    func perform<T>(_ requestable: CollectionRequest<T>,
+                    callback: Callback<(Swift.Result<[T], Error>)>?)
     
 }
