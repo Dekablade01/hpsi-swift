@@ -1,5 +1,6 @@
 import App
 import XCTest
+import Quick
 
 final class AppTests: XCTestCase {
     func testNothing() throws {

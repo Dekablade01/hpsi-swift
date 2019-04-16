@@ -15,7 +15,6 @@ struct ResponseHandler<ObjectType: Decodable>: ResponseHandlable {
     
     func handleResponse(_ response: DataResponse<Data>,
                         callback: Callback<(Swift.Result<ResponseType, Error>)>?) {
-        
         switch response.result {
         case .success(let data):
             do {
@@ -25,7 +24,6 @@ struct ResponseHandler<ObjectType: Decodable>: ResponseHandlable {
                 // handle custom error
                 // handle cannot decode
             }
-            
         case .failure: break
             // handle http error
         }

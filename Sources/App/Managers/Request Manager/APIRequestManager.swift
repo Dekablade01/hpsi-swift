@@ -11,7 +11,9 @@ import Foundation
 
 final class APIRequestManager: RequestManager {
     
-    var sessionManager: SessionManager
+    private var sessionManager: SessionManager
+    
+    static var shared = APIRequestManager()
     
     init(retrier: RequestRetrier? = nil, adapter: RequestAdapter? = nil) {
         let configuration = URLSessionConfiguration.default
@@ -38,13 +40,8 @@ final class APIRequestManager: RequestManager {
         responseHandler: Handler,
         callback: Callback<Swift.Result<Handler.ResponseType, Error>>?) {
         sessionManager
-            .request(request.path,
-                     method: request.method,
-                     parameters: request.parameters,
-                     encoding: request.encoding,
-                     headers: request.headers)
-            .responseData { responseHandler.handleResponse($0) { callback?($0) }
-        }
+            .request(request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .responseData { responseHandler.handleResponse($0) { callback?($0) } }
     }
 }
 

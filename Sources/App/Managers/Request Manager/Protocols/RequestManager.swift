@@ -10,9 +10,7 @@ import Alamofire
 import Foundation
 
 protocol RequestManager {
-    
-    var sessionManager: SessionManager { get }
-    
+        
     func perform<T>(_ requestable: Request<T>,
                     callback: Callback<(Swift.Result<T, Error>)>?)
     
