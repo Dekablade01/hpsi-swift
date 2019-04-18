@@ -35,6 +35,29 @@ final class APIRequestManager: RequestManager {
         perform(requestable, responseHandler: ResponseHandler<[T]>(), callback: callback)
     }
     
+    func perform<T: Decodable>(_ requestable: Request<T>) -> Promise<T> {
+        let promise = Promise<T>()
+        
+        perform(requestable) {
+            switch $0 {
+            case .success(let value): promise.success(with: value)
+            case .failure(let error): promise.failure(with: error)
+            }
+        }
+        return promise
+    }
+
+    func perform<T: Decodable>(_ requestable: CollectionRequest<T>) -> Promise<[T]> {
+        let promise = Promise<[T]>()
+        perform(requestable) {
+            switch $0 {
+            case .success(let value): promise.success(with: value)
+            case .failure(let error): promise.failure(with: error)
+            }
+        }
+        return promise
+    }
+    
     private func perform<Handler: ResponseHandlable>(
         _ request: Requestable,
         responseHandler: Handler,
