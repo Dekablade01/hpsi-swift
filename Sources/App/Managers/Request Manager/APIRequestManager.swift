@@ -64,11 +64,7 @@ final class APIRequestManager: RequestManager {
         callback: Callback<Swift.Result<Handler.ResponseType, Error>>?) {
         sessionManager
             .request(request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
-            .responseData { data in
-                responseHandler.handleResponse(data) { result in
-                    callback?(result)
-                }
-        }
+            .responseData { responseHandler.handleResponse($0) { callback?($0) } }
     }
 }
 
